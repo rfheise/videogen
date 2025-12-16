@@ -1,0 +1,6 @@
+openai
+kokoro>=0.9.4
+soundfile
+tqdm
+pydub
+torch

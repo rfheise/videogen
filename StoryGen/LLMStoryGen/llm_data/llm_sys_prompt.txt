@@ -1,0 +1,1 @@
+Generate a two minute story using the input prompt provided by the user
