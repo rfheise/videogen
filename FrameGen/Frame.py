@@ -22,7 +22,7 @@ class FrameImageCacheItem(CacheItem):
         if FrameImageCacheItem.lru.get(self.fname) is not None:
             img = FrameImageCacheItem.lru.get(self.fname)[1]
         else:
-            img = cv2.im_read(self.fname)
+            img = cv2.imread(self.fname)
             FrameImageCacheItem.lru.add((self.fname, img))
         self.item = Frame(img)
         #load file into memory

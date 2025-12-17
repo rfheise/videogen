@@ -1,12 +1,13 @@
-from .LLMStoryGen import LLMStoryGen
+from .LLMPrompt import LLMSDPrompt
+import os
 from ...Helper import Logger 
 from openai import OpenAI
 import json 
 
-class ChatGPTStoryGen(LLMStoryGen):
-
-    def __init__(self, story_prompt, model = "gpt-5-mini"):
-        super().__init__(story_prompt)
+class ChatGPTPromptGen(LLMSDPrompt):
+    def __init__(self, story, style=None, model="gpt-5-mini"):
+        self.story = story.copy()
+        self.style = style
         self.client = OpenAI()
         self.model = model
         self.output_format = {
@@ -16,22 +17,20 @@ class ChatGPTStoryGen(LLMStoryGen):
             "schema": {
                 "type": "object",
                 "properties": {
-                    "story": {
-                        "type": "string"
+                    "prompts": {
+                        "type": "array",
+                        "items": {
+                            "type":"string"
+                        },
+                        "minItems":len(self.story.phrases)
                     }
                 },
-                "required": ["story"],
+                "required": ["prompts"],
                 "additionalProperties": False
             }
         }
         }
 
-    def prompt_llm(self, sys_prompt, story_prompt):
-        model_input = self.get_model_input(sys_prompt, story_prompt)
-        ret = self.call_api(model_input)
-        Logger.debug(ret["story"])
-        return [ret["story"]]
-    
     def get_model_input(self, sys_prompt, story_prompt):
         model_input = [
             {
@@ -56,22 +55,14 @@ class ChatGPTStoryGen(LLMStoryGen):
         ]
         return model_input
     
-    def call_api(self, model_input):
-        
-        Logger.log("Calling ChatGPT To Generate The Story!")
-
+    def query_api(self, sys_prompt, user_prompt):
+        model_input = self.get_model_input(sys_prompt, user_prompt)
+        Logger.log("Calling ChatGPT To Generate The Stable Diffusion Prompts")
         response = self.client.responses.create(
             model=self.model,
             input=model_input,
             text=self.output_format
             
         )
+        return json.loads(response.output_text)['prompts']
 
-        return json.loads(response.output_text)
-
-    
-if __name__ == "__main__":
-
-    story_gen = ChatGPTStoryGen("Marcus Aurelius Teaching Commodus How To Ride A Horse")
-    story = story_gen.generate_story()
-    print(str(story))

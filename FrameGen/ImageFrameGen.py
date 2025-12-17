@@ -3,6 +3,7 @@ from ..StoryGen import FileStoryGen
 from ..Narrator import KokoruNarrator
 from ..Helper import Logger
 import os 
+from .Frame import FrameList,FrameImageCacheItem
 
 class ImageFrameGen():
 
@@ -18,9 +19,20 @@ class ImageFrameGen():
         self.merge_story()
         self.convert_timestamps_to_frames()
         images = self.call_image_gen()
+        frames = self.images_to_frames(images)
+        Logger.log("Finished Generating\n")
 
-        Logger.log("Finished Generating")
+        return frames
     
+    def images_to_frames(self, images):
+        frames = FrameList(10, FrameImageCacheItem)
+        for i,phrase in enumerate(self.story.phrases):
+            image = images[i]
+            total = phrase.end - phrase.start + 1
+            for _ in range(total):
+                frames.add_item(image)
+        return frames
+
     def call_image_gen(self):
         #to be implemented by inherited class
         pass 

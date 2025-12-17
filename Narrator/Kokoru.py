@@ -25,6 +25,11 @@ class KokoruNarrator(Narrator):
 
     @staticmethod
     def get_folder():
+        path = os.path.join(os.path.dirname(__file__),"tmp")
+        if not os.path.exists(path):
+            os.makedirs(path, exist_ok=True)
+            os.makedirs(os.path.join(path,"tmp_audio"),exist_ok=True)
+            os.makedirs(os.path.join(path,"tmp_story"),exist_ok=True)
         return os.path.join(os.path.dirname(__file__),"tmp")
     
     def call_audio_generator(self, story):
@@ -35,15 +40,15 @@ class KokoruNarrator(Narrator):
         generator = pipeline(text, voice=self.voice)
         audio_clips = AudioList()
         id_to_fname = lambda x:os.path.join(tmp_file_dir, f'{self.voice}-audio-{x}.wav')
-        # for i, (gs, ps, audio) in tqdm(enumerate(generator), total=len(text)):
-        #     # print(i, gs, ps)
-        #     # display(Audio(data=audio, rate=24000, autoplay=i==0))
-        #     audio_file = id_to_fname(self.story.phrases[i].id)
-        #     sf.write(audio_file, audio, 24000)
-        #     audio_clips.add_item(audio_file)
+        for i, (gs, ps, audio) in tqdm(enumerate(generator), total=len(text)):
+            # print(i, gs, ps)
+            # display(Audio(data=audio, rate=24000, autoplay=i==0))
+            audio_file = id_to_fname(self.story.phrases[i].id)
+            sf.write(audio_file, audio, 24000)
+            audio_clips.add_item(audio_file)
         
-        for f in [id_to_fname(phrase.id) for phrase in self.story.phrases]:
-            audio_clips.add_item(f)
+        # for f in [id_to_fname(phrase.id) for phrase in self.story.phrases]:
+        #     audio_clips.add_item(f)
             
         self.annotate_story(audio_clips)
         return audio_clips
@@ -63,9 +68,9 @@ class KokoruNarrator(Narrator):
 
 if __name__ == "__main__":
     prompt = "Marcus Aurelius teaching Commodus how to ride a horse"
-    # story = ChatGPTStoryGen(prompt).generate_story()
-    story_path = os.path.join(KokoruNarrator.get_folder(), "tmp_story","rome.txt")
-    story = FileStoryGen(story_path).generate_story()
+    story = ChatGPTStoryGen(prompt).generate_story()
+    # story_path = os.path.join(KokoruNarrator.get_folder(), "tmp_story","rome.txt")
+    # story = FileStoryGen(story_path).generate_story()
     n = KokoruNarrator(story)
     story, audio_list = n.generate_audio()
     out_file = os.path.join(KokoruNarrator.get_folder(),"out.wav")

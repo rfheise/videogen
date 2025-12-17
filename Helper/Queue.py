@@ -59,7 +59,7 @@ class LRU():
     def get(self, idx):
         if idx in self.items:
             self.add(self.items[idx])
-            return self.items[idx]
+            return self.items[idx].val
         return None
     
     #returns item kicked from LRU if applicable otherwise None

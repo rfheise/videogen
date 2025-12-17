@@ -37,6 +37,11 @@ class Phrase():
     def __str__(self):
         return f"{self.id}: {self.s}"
 
+    def copy(self):
+        other = self.__class__(self.s)
+        other.id = self.id 
+        return other
+
 class TimePhrase(Phrase):
 
     def __init__(self, s, start=None, end=None):
@@ -51,6 +56,12 @@ class TimePhrase(Phrase):
     @property
     def total(self):
         return self.end - self.start
+    
+    def copy(self):
+        other = super().copy()
+        other.start = self.start 
+        other.end = self.end 
+        return other
 
     def __str__(self):
         return f"{self.start}:{self.end} - {super().__str__()}"
@@ -81,8 +92,8 @@ class Story():
             phrase_class = self.phrase_class 
         other = Story(phrase_class)
         for i,p in enumerate(self.phrases):
-            other.add_phrase(p.s)
-            other.phrases[i].id = p.id
+            phrase = p.copy()
+            other.phrases.append(phrase)
         return other
 
 

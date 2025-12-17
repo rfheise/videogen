@@ -1,39 +1,65 @@
 from .ImageFrameGen import ImageFrameGen
 from .FrameGen import FrameGen
-from ..StoryGen import FileStoryGen
+from ..StoryGen import FileStoryGen,ChatGPTStoryGen
 from ..Narrator import KokoruNarrator
 from ..Helper import Logger
 import os 
 from .Frame import FrameList, FrameImageCacheItem
 import torch
 from diffusers import DiffusionPipeline
+from .LLM_SD_Prompt import ChatGPTPromptGen, Styles
 
 class SDFrameGen(ImageFrameGen):
 
     @staticmethod
     def get_cwd():
-        return os.path.join(os.path.dirname(__file__),"tmp")
+        path = os.path.join(os.path.dirname(__file__),"tmp")
+        if not os.path.exists(path):
+            os.makedirs(path, exist_ok=True)
+        return path 
     
     def call_image_gen(self):
-        self.generate_image("cartoon dog running in a park", os.path.join(self.get_cwd(),"out.jpg"))
-        return None
-        images = []
-        for phrase in self.story.phrases:
+        prompts = []
+        out_files = []
+        
+        # convert story to prompts 
+        prompt_gen = ChatGPTPromptGen(self.story,Styles.cartoon )
+        story = prompt_gen.get_prompts()
+
+        for phrase in story.phrases:
             out_file = os.path.join(self.get_cwd(), f"{phrase.id}.jpg")
-            self.generate_image(phrase, out_file)
-            images.append(out_file)
+            out_files.append(out_file)
+            prompts.append(phrase.s)
+        images = self.generate_image(prompts, out_files)
+        # images = out_files
         return images
         
-    def generate_image(self, phrase, out_file):
-        model = "stabilityai/stable-diffusion-3.5-medium"
-        # model = "Qwen/Qwen-Image"
-        pipe = DiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
-        pipe.to("mps")
+    def generate_image(self, prompts, out_files):
+        
+        gs = 5
+        prompt_list = []
+        #do five at at time
+        for i in range(len(prompts)//gs + 1):
+            start = i * gs
+            end = min(i *gs + gs, len(prompts)) 
+            if len(prompts[start:end]) == 0:
+                continue
+            prompt_list.append(prompts[start:end])
 
-        image = pipe(
-            prompt="A capybara holding a sign that reads Hello World",
-        ).images[0]
-        image.save(out_file)
+        start = 0
+        for prompts in prompt_list:
+            model = "stabilityai/stable-diffusion-3.5-medium"
+            # model = "Qwen/Qwen-Image"
+            pipe = DiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
+            pipe.to("cuda")
+            images = pipe(
+                prompt=prompts
+            ).images
+            for i,image in enumerate(images):
+                image.save(out_files[start + i])
+            start += len(images)
+
+        return out_files
 
 
         
