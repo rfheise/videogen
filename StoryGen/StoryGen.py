@@ -35,7 +35,7 @@ class Phrase():
         return self.s 
     
     def __str__(self):
-        return self.s
+        return f"{self.id}: {self.s}"
 
 class TimePhrase(Phrase):
 
@@ -47,6 +47,13 @@ class TimePhrase(Phrase):
     def setTimeStamp(self, start, end):
         self.start = start 
         self.end = end 
+    
+    @property
+    def total(self):
+        return self.end - self.start
+
+    def __str__(self):
+        return f"{self.start}:{self.end} - {super().__str__()}"
     
 class Story():
 

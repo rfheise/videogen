@@ -4,3 +4,5 @@ soundfile
 tqdm
 pydub
 torch
+diffusers
+opencv-python

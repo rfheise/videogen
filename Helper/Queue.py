@@ -50,20 +50,33 @@ class LRU():
         self.items = {}
         self.max_size = size
     
+    @staticmethod
+    def get_idx(item):
+        if type(item) == tuple:
+            return item[0]
+        return item 
+
+    def get(self, idx):
+        if idx in self.items:
+            self.add(self.items[idx])
+            return self.items[idx]
+        return None
+    
     #returns item kicked from LRU if applicable otherwise None
     def add(self, item):
 
         ret = None
-        if item in self.items:
-            self.remove(self.items[item])
+
+        if self.get_idx(item) in self.items:
+            self.remove(self.items[self.get_idx(item)])
         
         if self.queue.size == self.max_size:
             ret = self.queue.dequeue()
-            if not ret:
-                del self.items[ret]
-        
+            if ret is not None:
+                del self.items[self.get_idx(ret)]
+
         self.queue.enqueue(item)
-        self.items[item] = self.queue.root
+        self.items[self.get_idx(item)] = self.queue.root
 
         return ret
     

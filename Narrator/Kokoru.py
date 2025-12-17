@@ -35,12 +35,16 @@ class KokoruNarrator(Narrator):
         generator = pipeline(text, voice=self.voice)
         audio_clips = AudioList()
         id_to_fname = lambda x:os.path.join(tmp_file_dir, f'{self.voice}-audio-{x}.wav')
-        for i, (gs, ps, audio) in tqdm(enumerate(generator), total=len(text)):
-            # print(i, gs, ps)
-            # display(Audio(data=audio, rate=24000, autoplay=i==0))
-            audio_file = id_to_fname(self.story.phrases[i].id)
-            sf.write(audio_file, audio, 24000)
-            audio_clips.add_item(audio_file)
+        # for i, (gs, ps, audio) in tqdm(enumerate(generator), total=len(text)):
+        #     # print(i, gs, ps)
+        #     # display(Audio(data=audio, rate=24000, autoplay=i==0))
+        #     audio_file = id_to_fname(self.story.phrases[i].id)
+        #     sf.write(audio_file, audio, 24000)
+        #     audio_clips.add_item(audio_file)
+        
+        for f in [id_to_fname(phrase.id) for phrase in self.story.phrases]:
+            audio_clips.add_item(f)
+            
         self.annotate_story(audio_clips)
         return audio_clips
     
