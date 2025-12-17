@@ -23,7 +23,7 @@ class SDFrameGen(ImageFrameGen):
         out_files = []
         
         # convert story to prompts 
-        prompt_gen = ChatGPTPromptGen(self.story )
+        prompt_gen = ChatGPTPromptGen(self.story,Styles.real)
         story = prompt_gen.get_prompts()
 
         for phrase in story.phrases:
