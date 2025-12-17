@@ -2,3 +2,4 @@ The user will pass in a story where each line is segmented with a number. For ea
 
 Understand who the characters are in the story, what they look like, and who they are 
 Then take the line and create a detailed prompt for stable diffusion so that it can recreate the scene. Whenever mentioning a character in the prompts please describe them in detail.
+The prompts must be detailed but brief ~30 words max.

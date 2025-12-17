@@ -23,7 +23,7 @@ class SDFrameGen(ImageFrameGen):
         out_files = []
         
         # convert story to prompts 
-        prompt_gen = ChatGPTPromptGen(self.story,Styles.cartoon )
+        prompt_gen = ChatGPTPromptGen(self.story )
         story = prompt_gen.get_prompts()
 
         for phrase in story.phrases:
@@ -48,8 +48,7 @@ class SDFrameGen(ImageFrameGen):
 
         start = 0
         for prompts in prompt_list:
-            model = "stabilityai/stable-diffusion-3.5-medium"
-            # model = "Qwen/Qwen-Image"
+            # pipe = DiffusionPipeline.from_pretrained("Qwen/Qwen-Image",use_safetensors=True)
             pipe = DiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
             pipe.to("cuda")
             images = pipe(
