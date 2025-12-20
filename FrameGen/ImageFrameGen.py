@@ -1,7 +1,7 @@
 from .FrameGen import FrameGen
 from ..StoryGen import FileStoryGen
 from ..Narrator import KokoruNarrator
-from ..Helper import Logger
+from ..Utilities import Logger
 import os 
 from .Frame import FrameList,FrameImageCacheItem
 

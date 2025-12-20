@@ -2,7 +2,7 @@ from .ImageFrameGen import ImageFrameGen
 from .FrameGen import FrameGen
 from ..StoryGen import FileStoryGen,ChatGPTStoryGen
 from ..Narrator import KokoruNarrator
-from ..Helper import Logger
+from ..Utilities import Logger
 import os 
 from .Frame import FrameList, FrameImageCacheItem
 import torch
@@ -19,27 +19,33 @@ class SDFrameGen(ImageFrameGen):
             os.makedirs(path, exist_ok=True)
         return path 
     
+    def generate_prompts(self):
+        prompt_gen = ChatGPTPromptGen(self.story,Styles.cartoon)
+        prompts = prompt_gen.query_api()["prompts"]
+        return prompts
+
+        
+    
     def call_image_gen(self):
         prompts = []
         out_files = []
         
         # convert story to prompts 
-        # prompt_gen = ChatGPTPromptGen(self.story,Styles.cartoon)
-        # story = prompt_gen.get_prompts()
-        story = self.story
+        
+        prompts = self.generate_prompts()
 
-        for phrase in story.phrases:
+        for i,phrase in enumerate(self.story.phrases):
             out_file = os.path.join(self.get_cwd(), f"{phrase.id}.jpg")
             out_files.append(out_file)
-            prompts.append(phrase.s)
-            break
+            prompts.append(prompts[i])
+
         images = self.generate_image(prompts, out_files)
         # images = out_files
         return images
         
     def generate_image(self, prompts, out_files):
         
-        gs = 5
+        gs = 1
         prompt_list = []
         #do five at at time
         for i in range(len(prompts)//gs + 1):
@@ -52,8 +58,8 @@ class SDFrameGen(ImageFrameGen):
         start = 0
         for prompts in prompt_list:
             # pipe = DiffusionPipeline.from_pretrained("Qwen/Qwen-Image",use_safetensors=True)
-            pipe_res = self.generate_sd_pipe(prompts)
-            images = pipe_res.images
+            pipe_res = self.generate_sd_pipe(prompts,'cuda')
+            images = pipe_res
             for i,image in enumerate(images):
                 image.save(out_files[start + i])
             start += len(images)
@@ -62,11 +68,13 @@ class SDFrameGen(ImageFrameGen):
 
     def generate_sd_pipe(self, prompts, device="mps"):
         pipe = DiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
-        pos_prompt = "A cartoon tiger drinking soda in the artic"
-        neg_prompt = "realism, photograph, realistic"
         pipe.to(device)
+        # for prompt in prompts:
+        pos_prompt = [p['positive_prompt'] for p in prompts]
+        neg_prompt = [p['negative_prompt'] for p in prompts]
         width = 1344
         height = 768
+    
         compel = Compel(tokenizer=[pipe.tokenizer, pipe.tokenizer_2],
                 text_encoder=[pipe.text_encoder, pipe.text_encoder_2],
                 returned_embeddings_type=ReturnedEmbeddingsType.PENULTIMATE_HIDDEN_STATES_NON_NORMALIZED,
@@ -79,8 +87,8 @@ class SDFrameGen(ImageFrameGen):
             pooled_prompt_embeds=p_pooled,
             negative_prompt_embeds=n_conditioning,
             negative_pooled_prompt_embeds=n_pooled,
-            num_inference_steps=50)
-        return ret
+            num_inference_steps=100)
+        return ret.images
         
 
     

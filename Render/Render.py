@@ -1,5 +1,5 @@
 import os 
-from ..Helper import Logger
+from ..Utilities import Logger
 from .WriteVideo import write_video, combine_audio_video
 
 class Render():

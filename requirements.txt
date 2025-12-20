@@ -7,3 +7,4 @@ torch
 diffusers
 opencv-python
 compel
+accelerate

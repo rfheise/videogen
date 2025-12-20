@@ -1,5 +1,5 @@
 from .StoryGen import StoryGen
-from ..Helper import Logger
+from ..Utilities import Logger
 
 class FileStoryGen(StoryGen):
 

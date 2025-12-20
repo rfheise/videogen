@@ -1,15 +1,17 @@
-from .LLMStoryGen import LLMStoryGen
-from ...Helper import Logger 
-from openai import OpenAI
-import json 
+import os
+from ...Utilities import ChatGPTQuery
+from ..StoryGen import StoryGen
 
-class ChatGPTStoryGen(LLMStoryGen):
+class ChatGPTStoryQuery(ChatGPTQuery):
 
-    def __init__(self, story_prompt, model = "gpt-5-mini"):
-        super().__init__(story_prompt)
-        self.client = OpenAI()
-        self.model = model
-        self.output_format = {
+    def __init__(self, story_prompt):
+        sys_prompt_file = os.path.join(os.path.dirname(__file__), "llm_data","llm_sys_prompt.txt")
+        log_msg = "Calling ChatGPT to generate script"
+        super().__init__(system_prompt_file=sys_prompt_file, user_prompt=story_prompt,log_message=log_msg)
+    
+    @property
+    def output_format(self):
+        return {
         "format": {
             "type": "json_schema",
             "name": "storyline",
@@ -25,51 +27,15 @@ class ChatGPTStoryGen(LLMStoryGen):
             }
         }
         }
-
-    def prompt_llm(self, sys_prompt, story_prompt):
-        model_input = self.get_model_input(sys_prompt, story_prompt)
-        ret = self.call_api(model_input)
-        Logger.debug(ret["story"])
-        return [ret["story"]]
     
-    def get_model_input(self, sys_prompt, story_prompt):
-        model_input = [
-            {
-            "role": "system",
-            "content": [
-                {
-                "type": "input_text",
-                "text": sys_prompt
-                }
-            ]
-            },
-            {
-            "role": "user",
-            "content": [
-                {
-                "type": "input_text",
-                "text": story_prompt
-                }
-            ]
-            },
+class ChatGPTStoryGen(StoryGen):
 
-        ]
-        return model_input
-    
-    def call_api(self, model_input):
+    def generate_story_text(self):
+        gpt_query = ChatGPTStoryQuery(self.story_prompt)
+        text = gpt_query.query_api()
+        return [text]
         
-        Logger.log("Calling ChatGPT To Generate The Story!")
 
-        response = self.client.responses.create(
-            model=self.model,
-            input=model_input,
-            text=self.output_format
-            
-        )
-
-        return json.loads(response.output_text)
-
-    
 if __name__ == "__main__":
 
     story_gen = ChatGPTStoryGen("Marcus Aurelius Teaching Commodus How To Ride A Horse")

@@ -1,6 +1,6 @@
 from ..StoryGen import Story, TimePhrase, Phrase
 import re
-from ..Helper import Logger
+from ..Utilities import Logger
 
 class Narrator():
 

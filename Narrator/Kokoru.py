@@ -4,7 +4,7 @@ from kokoro import KPipeline
 import soundfile as sf
 import os
 from .Audio import AudioClip, AudioList
-from ..Helper import Logger
+from ..Utilities import Logger
 import warnings
 from tqdm import tqdm
 from pydub import AudioSegment

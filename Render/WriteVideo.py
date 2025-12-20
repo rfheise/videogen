@@ -2,7 +2,7 @@ import cv2
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np 
 import subprocess
-from ..Helper import Logger
+from ..Utilities import Logger
 from tqdm import tqdm 
 
 def write_video(frames, output_path, fps):

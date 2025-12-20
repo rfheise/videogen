@@ -1,4 +1,4 @@
-from ..Helper import Logger
+from ..Utilities import Logger
 
 class FrameGen():
 

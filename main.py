@@ -6,7 +6,7 @@ import os
 
 def main():
     
-    prompt = "D.B, Cooper's big escape"
+    prompt = "A friendly ogre visits a mexican restaurant and orders a burrito"
     fps = 30
     # generate the story line
     story_gen = ChatGPTStoryGen(prompt)
