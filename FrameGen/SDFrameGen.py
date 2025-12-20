@@ -67,8 +67,8 @@ class SDFrameGen(ImageFrameGen):
             # pipe = DiffusionPipeline.from_pretrained("Qwen/Qwen-Image",use_safetensors=True)
             pipe_res = self.generate_sd_pipe(prompts,'cuda')
             images = pipe_res
-            for i in range(len(out_files)):
-                images[i + start].save(out_files[i + start])
+            for i,image in enumerate(images):
+                image.save(out_files[start + i])
             start += len(images)
 
         return out_files
@@ -100,8 +100,7 @@ class SDFrameGen(ImageFrameGen):
         
 
     
-
-if __name__ == "__main__":
+def main():
     prompt = "Marcus Aurelius teaching Commodus how to ride a horse"
     # story = ChatGPTStoryGen(prompt).generate_story()
     story_path = os.path.join(KokoruNarrator.get_folder(), "tmp_story","rome.txt")
@@ -112,3 +111,32 @@ if __name__ == "__main__":
     # audio_list.merge_clips(out_file)
     frame_gen = SDFrameGen(story, audio_list)
     frame_gen.generate_frames()
+
+def call_sd():
+    pipe = DiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
+    pipe.to("cuda")
+    # for prompt in prompts:
+    pos_prompt = "Spongebob eating a can of soda"
+    neg_prompt = "realistic"
+    width = 1344
+    height = 768
+    print(pos_prompt)
+    print(neg_prompt)
+    compel = Compel(tokenizer=[pipe.tokenizer, pipe.tokenizer_2],
+            text_encoder=[pipe.text_encoder, pipe.text_encoder_2],
+            returned_embeddings_type=ReturnedEmbeddingsType.PENULTIMATE_HIDDEN_STATES_NON_NORMALIZED,
+            requires_pooled=[False, True])
+    p_conditioning, p_pooled = compel(pos_prompt)
+    n_conditioning, n_pooled = compel(neg_prompt)
+    ret = pipe(width=width,
+        height=height,
+        prompt_embeds=p_conditioning,
+        pooled_prompt_embeds=p_pooled,
+        negative_prompt_embeds=n_conditioning,
+        negative_pooled_prompt_embeds=n_pooled,
+        num_inference_steps=100)
+    ret.images[0].save(os.path.join(os.path.dirname(__file__), "tmp","tmp_img.jpg"))
+
+if __name__ == "__main__":
+    
+    call_sd()
