@@ -1,2 +1,3 @@
 from .ChatGPTPromptGen import ChatGPTPromptGen
-from . import Styles
+from .Styles import Styles
+from .ChatGPTCanon import ChatGPTCanon

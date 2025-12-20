@@ -2,12 +2,12 @@ from .ImageFrameGen import ImageFrameGen
 from .FrameGen import FrameGen
 from ..StoryGen import FileStoryGen,ChatGPTStoryGen
 from ..Narrator import KokoruNarrator
-from ..Utilities import Logger
+from ..Utilities import Logger, read_json
 import os 
 from .Frame import FrameList, FrameImageCacheItem
 import torch
 from diffusers import DiffusionPipeline
-from .LLM_SD_Prompt import ChatGPTPromptGen, Styles
+from .LLM_SD_Prompt import ChatGPTPromptGen, Styles, ChatGPTCanon
 from compel import Compel, ReturnedEmbeddingsType
 
 class SDFrameGen(ImageFrameGen):
@@ -19,11 +19,18 @@ class SDFrameGen(ImageFrameGen):
             os.makedirs(path, exist_ok=True)
         return path 
     
-    def generate_prompts(self):
-        prompt_gen = ChatGPTPromptGen(self.story,Styles.cartoon)
-        prompts = prompt_gen.query_api()["prompts"]
-        return prompts
-
+    def generate_prompts(self, style=None):
+        canon_gen = ChatGPTCanon(self.story)
+        canon = canon_gen.query_api()
+        # canon = read_json(os.path.join(os.path.dirname(__file__),"LLM_SD_Prompt","llm_data","tmp_canon.json"))
+        prompt_gen = ChatGPTPromptGen(self.story,canon, style)
+        prompts = prompt_gen.generate_prompts()
+        if len(prompts) < len(self.story.phrases):
+            raise Exception("Not Enough Prompts Generated!")
+        if style is not None:
+            return [{"negative_prompt":style['negative'], "positive_prompt": p, } for p in prompts]
+        else:
+            return [{"negative_prompt":canon['negative_prompt'], "positive_prompt": p, } for p in prompts]
         
     
     def call_image_gen(self):
@@ -32,7 +39,7 @@ class SDFrameGen(ImageFrameGen):
         
         # convert story to prompts 
         
-        prompts = self.generate_prompts()
+        prompts = self.generate_prompts(Styles.cartoon)
 
         for i,phrase in enumerate(self.story.phrases):
             out_file = os.path.join(self.get_cwd(), f"{phrase.id}.jpg")
@@ -60,8 +67,8 @@ class SDFrameGen(ImageFrameGen):
             # pipe = DiffusionPipeline.from_pretrained("Qwen/Qwen-Image",use_safetensors=True)
             pipe_res = self.generate_sd_pipe(prompts,'cuda')
             images = pipe_res
-            for i,image in enumerate(images):
-                image.save(out_files[start + i])
+            for i in range(len(out_files)):
+                images[i + start].save(out_files[i + start])
             start += len(images)
 
         return out_files
@@ -74,7 +81,8 @@ class SDFrameGen(ImageFrameGen):
         neg_prompt = [p['negative_prompt'] for p in prompts]
         width = 1344
         height = 768
-    
+        print(pos_prompt)
+        print(neg_prompt)
         compel = Compel(tokenizer=[pipe.tokenizer, pipe.tokenizer_2],
                 text_encoder=[pipe.text_encoder, pipe.text_encoder_2],
                 returned_embeddings_type=ReturnedEmbeddingsType.PENULTIMATE_HIDDEN_STATES_NON_NORMALIZED,

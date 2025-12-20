@@ -1,10 +1,15 @@
 
 
-def style():
-    return "prompt information regarding style"
+class Styles:
 
-def cartoon():
-    return "hand-drawn minimalist cartoon style, thick uneven black outlines, simple rounded shapes, flat muted color blocks, rough marker-like linework, low-detail expressive faces, childlike doodle aesthetic, storybook webcomic look, soft background blur"
 
-def real():
-    return "ultra-photorealistic cinematic photography, lifelike skin texture with natural pores, realistic anatomy, authentic fabric detail, natural global illumination, soft shadows, shallow depth of field, 85mm lens look, subtle film grain, high dynamic range, professional DSLR realism"
+    cartoon = {
+        "positive":"minimalist stick-figure illustration style, thin black hand-drawn lines, simple geometric bodies and limbs, no facial detail or minimal dots for eyes, flat monochrome line art, pure white background, no shading, no gradients, no textures, childlike schematic drawing, sparse composition, intentional simplicity, clean negative space",
+        "negative": "photorealistic, detailed anatomy, color, shading, gradients, shadows, textures, 3D, cartoon, anime, realistic faces, complex backgrounds, perspective depth"
+    }
+
+
+    real ={
+        "positive":"ultra-photorealistic cinematic photography, lifelike skin texture with natural pores and imperfections, physically accurate lighting and shadows, global illumination, shallow depth of field, realistic materials and fabrics, subtle film grain, high dynamic range, natural color grading, professional DSLR look, documentary realism",
+        "negative":"cartoon, illustration, anime, manga, CGI, 3D render, plastic skin, oversharpened, oversaturated, flat lighting, low detail, bad anatomy, uncanny"
+    }

@@ -1,0 +1,28 @@
+{
+    "style": "cinematic classical Roman realism, warm golden-hour lighting, painterly-photoreal balance, high-detail, filmic depth; anchor: cinematic_classical_roman,golden_hour,marble_colonnades,regal_human_scale; must_keep: marcus_aurelius,commodus,aurea_stallion",
+    "negative_prompt": "no anachronistic modern clothing or technology, no futuristic elements, no cartoonish proportions, no excessive ornamentation or sparkle, avoid weapons/blood, no modern saddles or tack, no text/logos, avoid low-detail or painterly-abstraction",
+    "characters": [
+        {
+            "name": "marcus_aurelius",
+            "description": "aged 50–65, Mediterranean olive skin, short curly salt-and-pepper hair, full trimmed grey beard, lined stoic face and thoughtful eyes, lean philosopher's build; wearing a simple cream/white woolen toga with subtle deep-purple trim (restrained imperial hint), sturdy leather riding boots, plain bronze laurel ring and minimal adornment, carries a folded scroll at the waist; overall dignified, worn features and classical proportions."
+        },
+        {
+            "name": "commodus",
+            "description": "young man aged 18–25, Mediterranean complexion, dark curly hair, clean-shaven or light stubble, athletic youthful build with visible muscle, strong shoulders; wearing a fitted riding tunic in muted crimson with a small embroidered imperial motif, leather riding boots, bronze signet ring and a short practical cloak fastened at the shoulder; polished but less weathered than the emperor, classical Roman facial proportions."
+        },
+        {
+            "name": "aurea_stallion",
+            "description": "large imperial stallion with a luminous golden coat (sunlit, slightly metallic sheen), long flaxen mane and tail flowing, powerful arched neck and muscular conformation, expressive dark eyes, subtle dappling rather than bold markings; fitted with period-appropriate Roman leather bridle and simple brass/laurel fittings (no modern tack), clean hooves, healthy sheen to coat."
+        }
+    ],
+    "locations": [
+        {
+            "name": "imperial_arena",
+            "description": "sun-drenched circular arena within the imperial palace compound: sand-and-trodden soil floor ringed by white marble colonnades and low stone walls, fluted columns, carved laurel reliefs, muted purple and ochre banners, clipped hedges and olive trees visible beyond; warm directional golden-hour light, soft dust motes, classical Roman architectural details and a dignified, measured scale."
+        },
+        {
+            "name": "palace_gardens",
+            "description": "sprawling palace grounds and gardens with rolling lawns, wildflower meadows, olive groves and trimmed cypress, scattered stone fountains and classical sculptures, low marble terraces and mosaic pathways; late-afternoon amber glow, soft long shadows, palette of ochre, terracotta, olive green and warm neutrals, peaceful cultivated-but-natural landscaping."
+        }
+    ]
+}
