@@ -1,0 +1,11 @@
+Todos:
+
+Get Stable Diffusion images to align with the story:
+Possible Solutions By Priority:
+    Use encodings to increase prompt length
+    Use two llm calls: 
+        One to analyze character description and scene description 
+        One to generate SD prompts from story
+    Tweak prompts so all generated prompts follow a similar style
+    
+

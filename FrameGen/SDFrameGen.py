@@ -8,6 +8,7 @@ from .Frame import FrameList, FrameImageCacheItem
 import torch
 from diffusers import DiffusionPipeline
 from .LLM_SD_Prompt import ChatGPTPromptGen, Styles
+from compel import Compel, ReturnedEmbeddingsType
 
 class SDFrameGen(ImageFrameGen):
 
@@ -23,13 +24,15 @@ class SDFrameGen(ImageFrameGen):
         out_files = []
         
         # convert story to prompts 
-        prompt_gen = ChatGPTPromptGen(self.story,Styles.cartoon)
-        story = prompt_gen.get_prompts()
+        # prompt_gen = ChatGPTPromptGen(self.story,Styles.cartoon)
+        # story = prompt_gen.get_prompts()
+        story = self.story
 
         for phrase in story.phrases:
             out_file = os.path.join(self.get_cwd(), f"{phrase.id}.jpg")
             out_files.append(out_file)
             prompts.append(phrase.s)
+            break
         images = self.generate_image(prompts, out_files)
         # images = out_files
         return images
@@ -49,18 +52,35 @@ class SDFrameGen(ImageFrameGen):
         start = 0
         for prompts in prompt_list:
             # pipe = DiffusionPipeline.from_pretrained("Qwen/Qwen-Image",use_safetensors=True)
-            pipe = DiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
-            pipe.to("cuda")
-            images = pipe(
-                prompt=prompts
-            ).images
+            pipe_res = self.generate_sd_pipe(prompts)
+            images = pipe_res.images
             for i,image in enumerate(images):
                 image.save(out_files[start + i])
             start += len(images)
 
         return out_files
 
-
+    def generate_sd_pipe(self, prompts, device="mps"):
+        pipe = DiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
+        pos_prompt = "A cartoon tiger drinking soda in the artic"
+        neg_prompt = "realism, photograph, realistic"
+        pipe.to(device)
+        width = 1344
+        height = 768
+        compel = Compel(tokenizer=[pipe.tokenizer, pipe.tokenizer_2],
+                text_encoder=[pipe.text_encoder, pipe.text_encoder_2],
+                returned_embeddings_type=ReturnedEmbeddingsType.PENULTIMATE_HIDDEN_STATES_NON_NORMALIZED,
+                requires_pooled=[False, True])
+        p_conditioning, p_pooled = compel(pos_prompt)
+        n_conditioning, n_pooled = compel(neg_prompt)
+        ret = pipe(width=width,
+            height=height,
+            prompt_embeds=p_conditioning,
+            pooled_prompt_embeds=p_pooled,
+            negative_prompt_embeds=n_conditioning,
+            negative_pooled_prompt_embeds=n_pooled,
+            num_inference_steps=50)
+        return ret
         
 
     

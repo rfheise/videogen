@@ -6,3 +6,4 @@ pydub
 torch
 diffusers
 opencv-python
+compel
