@@ -20,7 +20,7 @@ def main():
     # generate audio
     narrator = KokoruNarrator(story)
     story, audio_clips = narrator.generate_audio()
-    
+    exit()
     # visual
     frame_gen = GeminiFrameGen(story, audio_clips, fps=fps)
     frames = frame_gen.generate_frames()
