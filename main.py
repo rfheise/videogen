@@ -8,7 +8,7 @@ def main():
     
     # prompt = "The story of moses splitting the red sea"
     prompt = """
-       Santa Claus becomes an alcoholic and misses Christmas
+       The original Christmas story about the birth of Jesus Christ
     """
     fps = 30
     # generate the story line

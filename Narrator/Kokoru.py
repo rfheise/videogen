@@ -15,7 +15,7 @@ class KokoruNarrator(Narrator):
 
     voices = ['af_heart','am_michael','am_fenrir','af_bella','bf_emma','jf_alpha','zm_yunjian','ef_dora','ff_siwis','hf_alpha','im_nicola','pm_santa']
     
-    def __init__(self, story, voice='af_heart'):
+    def __init__(self, story, voice='am_michael'):
         super().__init__(story)
 
         if voice not in KokoruNarrator.voices:
