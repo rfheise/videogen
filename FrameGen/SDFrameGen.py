@@ -9,6 +9,7 @@ import torch
 from diffusers import DiffusionPipeline
 from .LLM_SD_Prompt import ChatGPTPromptGen, Styles, ChatGPTCanon
 from compel import Compel, ReturnedEmbeddingsType
+import json 
 
 class SDFrameGen(ImageFrameGen):
 
@@ -20,13 +21,21 @@ class SDFrameGen(ImageFrameGen):
         return path 
     
     def generate_prompts(self, style=None):
+
         canon_gen = ChatGPTCanon(self.story)
         canon = canon_gen.query_api()
-        # canon = read_json(os.path.join(os.path.dirname(__file__),"LLM_SD_Prompt","llm_data","tmp_canon.json"))
+        print(json.dumps(canon),"\n\n\n")
         prompt_gen = ChatGPTPromptGen(self.story,canon, style)
         prompts = prompt_gen.generate_prompts()
+        
+        # canon = read_json(os.path.join(os.path.dirname(__file__),"LLM_SD_Prompt","llm_data","tmp_canon.json"))
+        # prompts = read_json(os.path.join(os.path.dirname(__file__),"LLM_SD_Prompt","llm_data","tmp_prompt.json"))['prompts']
+        # prompt_gen = ChatGPTPromptGen(self.story,canon, style)
+        # prompts = [prompt_gen.generate_prompt(p) for p in prompts]
+
         if len(prompts) < len(self.story.phrases):
             raise Exception("Not Enough Prompts Generated!")
+        print(len(prompts), len(self.story.phrases),"\n\n\n\n\n\n")
         if style is not None:
             return [{"negative_prompt":style['negative'], "positive_prompt": p, } for p in prompts]
         else:
@@ -40,11 +49,12 @@ class SDFrameGen(ImageFrameGen):
         # convert story to prompts 
         
         prompts = self.generate_prompts(Styles.cartoon)
+        
 
         for i,phrase in enumerate(self.story.phrases):
             out_file = os.path.join(self.get_cwd(), f"{phrase.id}.jpg")
             out_files.append(out_file)
-            prompts.append(prompts[i])
+            # prompts.append(prompts[i])
 
         images = self.generate_image(prompts, out_files)
         # images = out_files
@@ -95,7 +105,7 @@ class SDFrameGen(ImageFrameGen):
             pooled_prompt_embeds=p_pooled,
             negative_prompt_embeds=n_conditioning,
             negative_pooled_prompt_embeds=n_pooled,
-            num_inference_steps=100)
+            num_inference_steps=500)
         return ret.images
         
 
@@ -116,8 +126,17 @@ def call_sd():
     pipe = DiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
     pipe.to("cuda")
     # for prompt in prompts:
-    pos_prompt = "Spongebob eating a can of soda"
-    neg_prompt = "realistic"
+    pos_prompt = """
+       playful hand-drawn stick figure doodle style, thick smooth black marker lines, rounded flowing strokes, soft organic curves, circle heads with simple expressive faces, dot eyes and curved smiles, mitten-like hands and rounded feet, exaggerated dynamic poses, motion implied through curved limbs, casual sketch aesthetic, minimalist cartoon line art, pure white background, no color, no shading, no texture,
+
+group of stick figures traveling north together, some pulling small sleds, others carrying sacks over shoulders, exaggerated walking poses showing effort and motion, one stick figure slightly ahead pointing forward, another lagging behind looking tired, simple cracked lines beneath feet suggesting icy ground, minimal horizon line only
+
+    """
+    neg_prompt = "realistic anatomy, thin lines, stiff straight limbs, detailed cartoon characters, color, shading, gradients, textures, background detail, perspective depth, realism, 3D, vector art"
+    
+    # pos_prompt = "Colorful Roaring Lion sitting on a victorian couch, flat icon, vector"
+    # neg_prompt = "realistic, realism, photograph"
+    
     width = 1344
     height = 768
     print(pos_prompt)
@@ -134,9 +153,10 @@ def call_sd():
         pooled_prompt_embeds=p_pooled,
         negative_prompt_embeds=n_conditioning,
         negative_pooled_prompt_embeds=n_pooled,
-        num_inference_steps=100)
+        num_inference_steps=500)
     ret.images[0].save(os.path.join(os.path.dirname(__file__), "tmp","tmp_img.jpg"))
 
 if __name__ == "__main__":
     
     call_sd()
+    # main()

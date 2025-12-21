@@ -8,3 +8,4 @@ diffusers
 opencv-python
 compel
 accelerate
+google-genai

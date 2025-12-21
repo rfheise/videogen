@@ -2,6 +2,7 @@ import os
 from .Logger import Logger
 from openai import OpenAI
 import json 
+from .Helper import write_json,read_json
 
 class LLMQuery():
     def __init__(self, system_prompt_file = "", user_prompt="", log_message = ""):
@@ -23,6 +24,7 @@ class LLMQuery():
         raise Exception("Query Function Not Implemented")
 
 class ChatGPTQuery(LLMQuery):
+    id = 0
     def __init__(self, system_prompt_file = "", user_prompt="", log_message = "", model="gpt-5-mini"):
         super().__init__(system_prompt_file, user_prompt, log_message)
         self.client = OpenAI()
@@ -30,6 +32,8 @@ class ChatGPTQuery(LLMQuery):
         self._system_prompt = system_prompt_file
         self._user_prompt = user_prompt
         self.log_message = log_message
+        self.id = ChatGPTQuery.id + 1
+        ChatGPTQuery.id += 1
     
     @property
     def output_format(self):
@@ -61,6 +65,9 @@ class ChatGPTQuery(LLMQuery):
         return model_input
     
     def query_api(self):
+        query_file = os.path.join(os.path.dirname(__file__), "tmp", f"query-{self.id}.json")
+        if os.path.exists(query_file):
+            return read_json(query_file)
         model_input = self.get_model_input()
         if self.log_message is not None and len(self.log_message) != 0:
             Logger.log(self.log_message)
@@ -70,6 +77,8 @@ class ChatGPTQuery(LLMQuery):
             text=self.output_format
             
         )
+        if Logger.debug_mode:
+            write_json(json.loads(response.output_text), query_file)
         return json.loads(response.output_text)
 
 

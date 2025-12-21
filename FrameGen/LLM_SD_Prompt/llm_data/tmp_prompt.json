@@ -3,85 +3,94 @@
         {
             "characters": [],
             "location": "imperial_arena",
-            "description": "Wide sunlit view of the imperial_arena showing sand-and-trodden floor, white marble colonnades and clipped hedges beyond, dust motes and olive leaves stirring in a warm golden-hour breeze."
+            "description": "Laurel trees along the marble colonnade cast dappled shade across the pale sand floor while individual leaves drift and scatter in a light breeze."
         },
         {
             "characters": [
-                "marcus_aurelius",
+                "emperor_marcus_aurelius",
                 "commodus"
             ],
             "location": "imperial_arena",
-            "description": "marcus_aurelius stands upright near the arena center holding a folded scroll at his waist, facing commodus who stands a few paces away as if preparing to learn."
+            "description": "emperor_marcus_aurelius stands upright near the arena center, toga arranged, as commodus stands a few paces away facing him; both framed by marble colonnades."
         },
         {
             "characters": [
-                "commodus"
+                "commodus",
+                "emperor_marcus_aurelius"
             ],
             "location": "imperial_arena",
-            "description": "commodus stands slightly forward with squared shoulders and visible tension in his stance, hands held near his sides as he watches an off-frame instructor."
+            "description": "commodus stands with rigid shoulders and clenched hands at his sides, eyes fixed on emperor_marcus_aurelius a few paces away."
         },
         {
             "characters": [
-                "marcus_aurelius",
+                "emperor_marcus_aurelius",
                 "commodus",
                 "aurea_stallion"
             ],
             "location": "imperial_arena",
-            "description": "commodus approaches aurea_stallion while marcus_aurelius stands a short distance away with a soft smile, one hand extended toward the horse's neck."
+            "description": "commodus approaches aurea_stallion's left shoulder while emperor_marcus_aurelius steps back a short distance, aurea_stallion's golden coat gleaming in the sun."
         },
         {
             "characters": [
-                "marcus_aurelius",
+                "emperor_marcus_aurelius",
                 "commodus",
                 "aurea_stallion"
             ],
             "location": "imperial_arena",
-            "description": "marcus_aurelius faces commodus with one hand raised in a measured teaching gesture as aurea_stallion stands between them, head turned slightly toward the pair."
-        },
-        {
-            "characters": [
-                "marcus_aurelius",
-                "commodus",
-                "aurea_stallion"
-            ],
-            "location": "imperial_arena",
-            "description": "marcus_aurelius demonstrates gentle hand placement along aurea_stallion's withers while commodus watches from close by, feet on compacted sand."
+            "description": "emperor_marcus_aurelius extends an open hand toward aurea_stallion and gestures toward commodus as he speaks, commodus watching closely."
         },
         {
             "characters": [
                 "commodus",
                 "aurea_stallion",
-                "marcus_aurelius"
+                "emperor_marcus_aurelius"
             ],
             "location": "imperial_arena",
-            "description": "commodus swings his leg over aurea_stallion's back, gripping the mane and settling into the saddle area as marcus_aurelius stands nearby observing."
+            "description": "commodus swings his leg over aurea_stallion's leather saddle and settles upright, one foot in the stirrup and hands gripping the reins as emperor_marcus_aurelius stands nearby."
         },
         {
             "characters": [
-                "marcus_aurelius",
+                "emperor_marcus_aurelius",
                 "commodus",
                 "aurea_stallion"
             ],
             "location": "imperial_arena",
-            "description": "Close mid-shot of commodus seated on aurea_stallion gripping leather reins tightly with visible tension in his arms, marcus_aurelius positioned just behind and to the side watching."
+            "description": "Close-up of commodus' white-knuckled hands wrapped around the leather reins and tense forearms, emperor_marcus_aurelius watching from a step behind."
         },
         {
             "characters": [
-                "marcus_aurelius",
+                "emperor_marcus_aurelius",
                 "commodus",
                 "aurea_stallion"
             ],
             "location": "imperial_arena",
-            "description": "marcus_aurelius inhales deeply with a visible rise of his chest while placing a hand near his ribs to demonstrate breathing, commodus mirrors the motion in the saddle."
+            "description": "emperor_marcus_aurelius inhales slowly with visible chest rise, demonstrating a deep breath while holding his hand slightly raised to show the rhythm to commodus."
+        },
+        {
+            "characters": [
+                "commodus",
+                "aurea_stallion"
+            ],
+            "location": "imperial_arena",
+            "description": "commodus relaxes his grip and draws a deep breath, leaning forward to rest a hand lightly on aurea_stallion's flank as the horse's muscles ripple beneath the saddle."
+        },
+        {
+            "characters": [
+                "emperor_marcus_aurelius",
+                "commodus",
+                "aurea_stallion"
+            ],
+            "location": "imperial_arena",
+            "description": "emperor_marcus_aurelius gives a subtle hand signal and a light touch to aurea_stallion's shoulder, prompting the horse to step forward while commodus steadies the reins."
         },
         {
             "characters": [
                 "commodus",
                 "aurea_stallion",
-                "marcus_aurelius"
+                "emperor_marcus_aurelius"
             ],
             "location": "imperial_arena",
-            "description": "commodus loosens his fingers on the reins and inhales, shoulders dropping slightly as aurea_stallion shifts beneath him."
+            "description": "aurea_stallion trots across the sandy floor with commodus in the saddle, both mane and commodus' hair whipping in the wind as emperor_marcus_aurelius watches from the colonnade edge."
         },
         {
             "characters": [
@@ -89,177 +98,88 @@
                 "aurea_stallion"
             ],
             "location": "imperial_arena",
-            "description": "Tight close-up of commodus's thigh and hands pressed against aurea_stallion's golden flank, the horse's muscles rippling beneath its coat."
+            "description": "Late-afternoon amber light casts long shadows as commodus sits astride aurea_stallion, both silhouetted against the warming sky."
         },
         {
             "characters": [
-                "marcus_aurelius",
+                "emperor_marcus_aurelius",
                 "commodus",
                 "aurea_stallion"
             ],
             "location": "imperial_arena",
-            "description": "marcus_aurelius lightly taps aurea_stallion's shoulder while gesturing forward with his free hand, commodus leaning forward in response."
+            "description": "emperor_marcus_aurelius leans slightly toward commodus while speaking, one hand raised in a measured gesture as commodus listens atop aurea_stallion."
+        },
+        {
+            "characters": [
+                "commodus",
+                "emperor_marcus_aurelius",
+                "aurea_stallion"
+            ],
+            "location": "imperial_arena",
+            "description": "commodus gives a single measured nod while holding the reins, eyes downshifted, as emperor_marcus_aurelius stands nearby."
         },
         {
             "characters": [
                 "commodus",
                 "aurea_stallion",
-                "marcus_aurelius"
+                "emperor_marcus_aurelius"
             ],
-            "location": "imperial_arena",
-            "description": "Commodus and aurea_stallion move into a trot across the arena, mane and commodus's short cloak whipping in the wind as marcus_aurelius walks beside them."
+            "location": "palace_sprawling_grounds",
+            "description": "commodus rides aurea_stallion along a meandering tiled path through fields of wildflowers while emperor_marcus_aurelius walks a few paces behind on the path."
+        },
+        {
+            "characters": [
+                "emperor_marcus_aurelius",
+                "commodus",
+                "aurea_stallion"
+            ],
+            "location": "palace_sprawling_grounds",
+            "description": "At a gentle halt, emperor_marcus_aurelius steps forward from the path and approaches commodus, who remains seated in aurea_stallion's saddle."
+        },
+        {
+            "characters": [
+                "emperor_marcus_aurelius",
+                "commodus",
+                "aurea_stallion"
+            ],
+            "location": "palace_sprawling_grounds",
+            "description": "emperor_marcus_aurelius stands close to commodus and speaks with a steady posture, one hand resting lightly at his side as aurea_stallion shifts weight beneath the saddle."
         },
         {
             "characters": [
                 "commodus",
+                "emperor_marcus_aurelius",
                 "aurea_stallion"
             ],
-            "location": "palace_gardens",
-            "description": "Commodus rides aurea_stallion toward the amber-lit horizon, the pair framed by long shadows stretching across lawns and distant olive groves."
-        },
-        {
-            "characters": [
-                "marcus_aurelius",
-                "commodus",
-                "aurea_stallion"
-            ],
-            "location": "palace_gardens",
-            "description": "marcus_aurelius rides alongside commodus, one hand raised in a guiding gesture while aurea_stallion keeps an even stride."
-        },
-        {
-            "characters": [
-                "marcus_aurelius",
-                "commodus",
-                "aurea_stallion"
-            ],
-            "location": "palace_gardens",
-            "description": "Wide shot of commodus on aurea_stallion and marcus_aurelius moving deeper through a meadow of wildflowers, olive trees and fountains visible beyond."
-        },
-        {
-            "characters": [
-                "marcus_aurelius",
-                "commodus",
-                "aurea_stallion"
-            ],
-            "location": "palace_gardens",
-            "description": "The pair come to a gentle halt among wildflowers; marcus_aurelius dismounts and steps close to the still-saddled commodus."
-        },
-        {
-            "characters": [
-                "marcus_aurelius",
-                "commodus",
-                "aurea_stallion"
-            ],
-            "location": "palace_gardens",
-            "description": "marcus_aurelius places a hand on commodus's shoulder and leans in to speak while aurea_stallion stands calmly between them."
+            "location": "palace_sprawling_grounds",
+            "description": "Twilight sinks low as commodus remains astride aurea_stallion, turning his head to look up at emperor_marcus_aurelius beneath the fading amber sky."
         },
         {
             "characters": [
                 "commodus",
-                "marcus_aurelius",
+                "emperor_marcus_aurelius",
                 "aurea_stallion"
             ],
-            "location": "palace_gardens",
-            "description": "Commodus looks up at marcus_aurelius in the twilight, holding the reins with one hand as the sky turns warm amber behind them."
+            "location": "palace_sprawling_grounds",
+            "description": "commodus looks directly at emperor_marcus_aurelius while still seated, a steady upward gaze, hands resting on the reins."
         },
         {
             "characters": [
-                "marcus_aurelius",
+                "emperor_marcus_aurelius",
                 "commodus",
                 "aurea_stallion"
             ],
-            "location": "palace_gardens",
-            "description": "marcus_aurelius rests his hand firmly on commodus's shoulder while aurea_stallion lowers its head slightly nearby."
+            "location": "palace_sprawling_grounds",
+            "description": "emperor_marcus_aurelius places his hand across commodus' shoulder from behind, both framed beside aurea_stallion's saddle."
         },
         {
             "characters": [
-                "marcus_aurelius",
+                "emperor_marcus_aurelius",
                 "commodus",
                 "aurea_stallion"
             ],
-            "location": "palace_gardens",
-            "description": "Commodus remounts as twilight deepens and the two prepare to depart, marcus_aurelius stepping back with a guiding motion toward the path home."
-        },
-        {
-            "characters": [
-                "marcus_aurelius",
-                "commodus",
-                "aurea_stallion"
-            ],
-            "location": "palace_gardens",
-            "description": "Commodus sits astride aurea_stallion while marcus_aurelius begins walking beside them along a mosaic pathway, both silhouetted by the setting sun."
-        },
-        {
-            "characters": [
-                "marcus_aurelius",
-                "commodus",
-                "aurea_stallion"
-            ],
-            "location": "palace_gardens",
-            "description": "Long lateral shot of commodus riding aurea_stallion with marcus_aurelius at his side as they move away from the gardens toward the palace under a twilight sky."
-        },
-        {
-            "characters": [
-                "marcus_aurelius",
-                "commodus",
-                "aurea_stallion"
-            ],
-            "location": "palace_gardens",
-            "description": "The trio's rhythm carries them along a tree-lined avenue, aurea_stallion's stride steady and their elongated shadows stretching across the path as dusk settles."
-        },
-        {
-            "characters": [
-                "marcus_aurelius",
-                "commodus",
-                "aurea_stallion"
-            ],
-            "location": "palace_gardens",
-            "description": "Final rear view of commodus on aurea_stallion and marcus_aurelius walking beside him, the palace roofs faint in the distance and warm twilight bathing the scene."
-        },
-        {
-            "characters": [
-                "marcus_aurelius",
-                "commodus",
-                "aurea_stallion"
-            ],
-            "location": "palace_gardens",
-            "description": "Close shot of aurea_stallion's hooves and the riders' silhouettes moving over the mosaic path, dust and petals scattering in their wake."
-        },
-        {
-            "characters": [
-                "marcus_aurelius",
-                "commodus",
-                "aurea_stallion"
-            ],
-            "location": "palace_gardens",
-            "description": "Side profile of commodus and aurea_stallion in motion with marcus_aurelius pacing beside them, the glow of the last light catching on the horse's mane."
-        },
-        {
-            "characters": [
-                "marcus_aurelius",
-                "commodus",
-                "aurea_stallion"
-            ],
-            "location": "palace_gardens",
-            "description": "A distant panorama shows the riders crossing the cultivated grounds toward the palace, cypress and fountains punctuating the warm-hued landscape as night approaches."
-        },
-        {
-            "characters": [
-                "marcus_aurelius",
-                "commodus",
-                "aurea_stallion"
-            ],
-            "location": "palace_gardens",
-            "description": "Silhouetted trio pass under an avenue of olive trees, aurea_stallion's flaxen mane trailing and the evening light rim-illuminating their forms."
-        },
-        {
-            "characters": [
-                "marcus_aurelius",
-                "commodus",
-                "aurea_stallion"
-            ],
-            "location": "palace_gardens",
-            "description": "Final close-up on marcus_aurelius's hand still resting lightly on commodus's shoulder as they continue toward the palace, twilight sky in the background."
+            "location": "palace_sprawling_grounds",
+            "description": "Under a twilight sky, commodus rides aurea_stallion along a low stone path while emperor_marcus_aurelius walks at his side, both silhouetted against the horizon as the horse's hooves strike the ground in steady rhythm."
         }
     ]
 }

@@ -99,8 +99,6 @@ class ChatGPTPromptGen(ChatGPTQuery):
     def clean_str(self, s):
         return s.lower().replace(" ", "")
     def generate_prompts(self):
-        self.characters = {self.clean_str(c['name']):c['description'] for c in self.canon['characters']}
-        self.locations = {self.clean_str(l['name']):l['description'] for l in self.canon['locations']}
         res = self.query_api()
         # with open(os.path.join(os.path.dirname(__file__), "llm_data","tmp_prompt.json")) as f:
             # res = json.loads(f.read())
@@ -124,6 +122,8 @@ class ChatGPTPromptGen(ChatGPTQuery):
     def generate_prompt(self, prompt):
 
         text = ""
+        self.characters = {self.clean_str(c['name']):c['description'] for c in self.canon['characters']}
+        self.locations = {self.clean_str(l['name']):l['description'] for l in self.canon['locations']}
         if self.style is not None:
             text += self.style['positive'] + '\n'
         if len(prompt['characters']) > 0:

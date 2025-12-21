@@ -1,12 +1,15 @@
 from .StoryGen import ChatGPTStoryGen, FileStoryGen
 from .Narrator import KokoruNarrator
-from .FrameGen import SDFrameGen
+from .FrameGen import SDFrameGen, ChatGPTFrameGen, GeminiFrameGen
 from .Render import Render
 import os 
 
 def main():
     
-    prompt = "A friendly ogre visits a mexican restaurant and orders a burrito"
+    # prompt = "The story of moses splitting the red sea"
+    prompt = """
+       Santa Claus becomes an alcoholic and misses Christmas
+    """
     fps = 30
     # generate the story line
     story_gen = ChatGPTStoryGen(prompt)
@@ -19,7 +22,7 @@ def main():
     story, audio_clips = narrator.generate_audio()
     
     # visual
-    frame_gen = SDFrameGen(story, audio_clips, fps=fps)
+    frame_gen = GeminiFrameGen(story, audio_clips, fps=fps)
     frames = frame_gen.generate_frames()
 
     #render

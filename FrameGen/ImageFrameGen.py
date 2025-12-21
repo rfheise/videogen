@@ -29,7 +29,10 @@ class ImageFrameGen():
         for i,phrase in enumerate(self.story.phrases):
             image = images[i]
             total = phrase.end - phrase.start + 1
+            if not os.path.exists(image):
+                print(image)
             for _ in range(total):
+                
                 frames.add_item(image)
         return frames
 
