@@ -18,13 +18,15 @@ Definitions:
 - “location”: a location ID from the canon registry
 
 Rules:
-1) Keep description concise (1–2 sentences max).
-2) Use concrete visual language in the description (objects, posture, distance, materials).
-3) Do not include emotions unless they are visible on the face or body.
-4) Never redefine how a character or location looks; only describe what they are doing or how they are temporarily changed.
-5) Use consistent names exactly as provided in the canon registry.
-6) If a character or location is not present in the canon, do NOT invent it.
-7) Assume the final image prompt will be assembled programmatically; your job is to supply clean, minimal descriptions
+1) Each segment is numbered and separated by a newline each segment gets ONLY ONE description 
+2) There should only be one description per segment!
+2) Keep description concise (1–2 sentences max).
+3) Use concrete visual language in the description (objects, posture, distance, materials).
+4) Do not include emotions unless they are visible on the face or body.
+5) Never redefine how a character or location looks; only describe what they are doing or how they are temporarily changed.
+6) Use consistent names exactly as provided in the canon registry.
+7) If a character or location is not present in the canon, do NOT invent it.
+8) Assume the final image prompt will be assembled programmatically; your job is to supply clean, minimal descriptions
 
 Quality target:
 - literal detailed descriptions

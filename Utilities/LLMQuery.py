@@ -67,6 +67,7 @@ class ChatGPTQuery(LLMQuery):
     
     def query_api(self):
         query_file = os.path.join(os.path.dirname(__file__), "tmp", f"query-{self.id}.json")
+        print(self.user_prompt)
         if os.path.exists(query_file):
             return read_json(query_file)
         model_input = self.get_model_input()

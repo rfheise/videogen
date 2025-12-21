@@ -26,7 +26,8 @@ class StoryGen():
         pass
 
 class Phrase():
-    ID = random.randint(0,10**9)
+    # ID = random.randint(0,10**9)
+    ID = -1
     # ID = 602515883
     def __init__(self,s):
         Phrase.ID += 1

@@ -8,7 +8,7 @@ def main():
     
     # prompt = "The story of moses splitting the red sea"
     prompt = """
-       The assassination of Julius Caesar and the fall of the Roman Republic
+       The story of Shackleton and his incredible leadership during his mission to Antarctica on the Endurance
     """
     fps = 30
     # generate the story line
@@ -20,14 +20,13 @@ def main():
     # generate audio
     narrator = KokoruNarrator(story)
     story, audio_clips = narrator.generate_audio()
-    exit()
     # visual
-    frame_gen = GeminiFrameGen(story, audio_clips, fps=fps)
+    frame_gen = SDFrameGen(story, audio_clips, fps=fps)
     frames = frame_gen.generate_frames()
 
     #render
     render = Render(frames, audio_clips, fps)
-    outfile = os.path.join(os.path.dirname(__file__), "rome.mp4")
+    outfile = os.path.join(os.path.dirname(__file__), "endurance.mp4")
     render.render(outfile)
 
     #get extras from user

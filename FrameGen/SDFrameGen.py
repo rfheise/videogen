@@ -25,17 +25,16 @@ class SDFrameGen(ImageFrameGen):
         canon_gen = ChatGPTCanon(self.story)
         canon = canon_gen.query_api()
         print(json.dumps(canon),"\n\n\n")
-        prompt_gen = ChatGPTPromptGen(self.story,canon, style)
+        prompt_gen = ChatGPTPromptGen(self.story, canon, style)
         prompts = prompt_gen.generate_prompts()
-        
         # canon = read_json(os.path.join(os.path.dirname(__file__),"LLM_SD_Prompt","llm_data","tmp_canon.json"))
         # prompts = read_json(os.path.join(os.path.dirname(__file__),"LLM_SD_Prompt","llm_data","tmp_prompt.json"))['prompts']
         # prompt_gen = ChatGPTPromptGen(self.story,canon, style)
         # prompts = [prompt_gen.generate_prompt(p) for p in prompts]
-
+        print(len(prompts), len(self.story.phrases),"\n\n\n\n\n\n")
         if len(prompts) < len(self.story.phrases):
             raise Exception("Not Enough Prompts Generated!")
-        print(len(prompts), len(self.story.phrases),"\n\n\n\n\n\n")
+        # exit()
         if style is not None:
             return [{"negative_prompt":style['negative'], "positive_prompt": p, } for p in prompts]
         else:

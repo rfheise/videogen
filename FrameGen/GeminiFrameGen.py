@@ -14,6 +14,7 @@ class GeminiFrameGen(SDFrameGen):
     def generate_image(self, prompts, out_files):
         
         max_tries = 3
+        # exit()
         for i,p in enumerate(prompts):
             tries = 0
             img_created = False

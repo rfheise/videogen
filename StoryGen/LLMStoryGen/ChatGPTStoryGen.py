@@ -33,7 +33,7 @@ class ChatGPTStoryGen(StoryGen):
     def generate_story_text(self):
         gpt_query = ChatGPTStoryQuery(self.story_prompt)
         text = gpt_query.query_api()
-        return [text['story']]
+        return [text['story'].replace("\n","")]
         
 
 if __name__ == "__main__":
