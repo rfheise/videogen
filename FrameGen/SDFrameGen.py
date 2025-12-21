@@ -48,7 +48,7 @@ class SDFrameGen(ImageFrameGen):
         
         # convert story to prompts 
         
-        prompts = self.generate_prompts(Styles.pixar)
+        prompts = self.generate_prompts(Styles.sticks)
         
 
         for i,phrase in enumerate(self.story.phrases):

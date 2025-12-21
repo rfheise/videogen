@@ -25,10 +25,11 @@ class LLMQuery():
 
 class ChatGPTQuery(LLMQuery):
     id = 0
+    client = OpenAI()
     def __init__(self, system_prompt_file = "", user_prompt="", log_message = "", model="gpt-5-mini"):
         super().__init__(system_prompt_file, user_prompt, log_message)
-        self.client = OpenAI()
         self.model = model
+        self.client = ChatGPTQuery.client
         self._system_prompt = system_prompt_file
         self._user_prompt = user_prompt
         self.log_message = log_message

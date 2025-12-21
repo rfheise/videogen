@@ -8,7 +8,7 @@ def main():
     
     # prompt = "The story of moses splitting the red sea"
     prompt = """
-       The original Christmas story about the birth of Jesus Christ
+       The assassination of Julius Caesar and the fall of the Roman Republic
     """
     fps = 30
     # generate the story line
@@ -27,7 +27,7 @@ def main():
 
     #render
     render = Render(frames, audio_clips, fps)
-    outfile = os.path.join(os.path.dirname(__file__), "video.mp4")
+    outfile = os.path.join(os.path.dirname(__file__), "rome.mp4")
     render.render(outfile)
 
     #get extras from user

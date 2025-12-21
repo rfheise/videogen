@@ -1,4 +1,5 @@
 from ..Utilities import Logger
+import random 
 
 class StoryGen():
 
@@ -25,7 +26,8 @@ class StoryGen():
         pass
 
 class Phrase():
-    ID = -1
+    ID = random.randint(0,10**9)
+    # ID = 602515883
     def __init__(self,s):
         Phrase.ID += 1
         self.id = Phrase.ID

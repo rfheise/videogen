@@ -17,6 +17,10 @@ class GeminiFrameGen(SDFrameGen):
         for i,p in enumerate(prompts):
             tries = 0
             img_created = False
+            # print(out_files[i])
+            # exit()
+            if os.path.exists(out_files[i]):
+                continue
             while tries < max_tries and img_created == False:
                 client = genai.Client()
                 prompt = p['positive_prompt']
